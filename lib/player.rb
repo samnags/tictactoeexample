@@ -4,10 +4,10 @@ class Player
 
   attr_accessor :name, :token, :record
 
-  def initialize(name)
-    @name = name
+  def initialize(hash)
+    @name = hash[:name]
+    @token = hash[:token]
     @record = {:win => 0, :loss => 0, :draw =>0 }
-    @torken
     @@all << self
   end
 
@@ -17,13 +17,24 @@ class Player
 
   def self.find_or_create_by(name)
     player = @@all.select {|person| person.name == name }
-      if player == []
-        player = Player.new(name)
-      end
+    player == [] ? Player.new({name: name}) : player
+  end
+
+  def token_assignment
+    puts "Would you like to be X or O?"
+    token = gets.chomp.upcase
+    @player.select_token(token)
   end
 
 
 
+  def select_token(token)
+    binding.pry
+    @player.token = token
+  end
 
+  def turn
+
+  end
 
 end
